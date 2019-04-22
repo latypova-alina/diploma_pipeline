@@ -19,5 +19,6 @@ class Filter:
             del(filtered_string[1])
             del(filtered_string[1])
             del(filtered_string[1])
+            del(filtered_string[1])
             writer.writerow(filtered_string)
 

@@ -11,10 +11,10 @@ class Raw:
       lines_counter = 0
       lines = file.readlines()
 
-      while lines_counter < len(lines):
+      while lines_counter < len(lines)-1:
         #read text part as array of tokens and entities
         text_part_array = []
-        while lines[lines_counter][0] != ".":
+        while lines_counter < len(lines)-1 and lines[lines_counter][0] != ".":
           text_part_array.append(lines[lines_counter][0:-1])
           lines_counter += 1
 
