@@ -5,6 +5,7 @@ import pdb
 class Raw:
   def __init__(self, ner_result):
     self.ner_result = ner_result
+    self.new_filename = "data/test.raw"
 
   def convert(self):
     with open(self.ner_result, 'r+') as file:
@@ -33,7 +34,7 @@ class Raw:
           entity_written = False
           entity_name = "0"
 
-          with open(self.ner_result[:-4] + "_raw.txt", "a") as out_file:
+          with open(self.new_filename, "a") as out_file:
             while token_entity_count < len(text_part_array):
 
               token = text_part_array[token_entity_count].split()[0]
