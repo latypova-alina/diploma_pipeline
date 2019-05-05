@@ -1,7 +1,6 @@
 import csv
 import pdb
 
-
 class Raw:
   def __init__(self, ner_result):
     self.ner_result = ner_result
@@ -18,6 +17,8 @@ class Raw:
         while lines_counter < len(lines)-1 and lines[lines_counter][0] != ".":
           text_part_array.append(lines[lines_counter][0:-1])
           lines_counter += 1
+
+        text_part_array.append(lines[lines_counter][0:-1])
 
         if lines[lines_counter][0] == ".":
           lines_counter += 1
@@ -60,13 +61,13 @@ class Raw:
 
                 # Check if token is the last in sentence
                 if token_entity_count != len(text_part_array):
-                  while text_part_array[token_entity_count].split()[1] == "I-DIS" and token_entity_count < len(text_part_array) - 1:
+                  while token_entity_count < len(text_part_array) and text_part_array[token_entity_count].split()[1] == "I-DIS":
                     full_entity += " {}".format(text_part_array[token_entity_count].split()[0])
                     text_part_array[token_entity_count] = "{} {}".format(text_part_array[token_entity_count].split()[0], "O")
 
                     token_entity_count += 1
 
-                  while text_part_array[token_entity_count].split()[1] == "I-ADR" and token_entity_count < len(text_part_array) - 1:
+                  while token_entity_count < len(text_part_array) and text_part_array[token_entity_count].split()[1] == "I-ADR":
                     full_entity += " {}".format(text_part_array[token_entity_count].split()[0])
                     text_part_array[token_entity_count] = "{} {}".format(text_part_array[token_entity_count].split()[0], "1")
 
