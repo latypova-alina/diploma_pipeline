@@ -7,17 +7,16 @@ from conll_to_raw import Raw
 from vec_to_conll import VecToConll
 from unite import Unite
 
-DATA_FOLDER = "../../src/diploma/pipeline/data"
-NER_DIR = "../../../NeuroNER-master"
-NER_OUT_DIR = "../../src/diploma/pipeline/output/new_dir"
-FULL_OUTPUT_PATH = "/home/alina/src/diploma/pipeline/output/new_dir"
+PYTHON_VER = "3.6"
+DATA_FOLDER = "/home/alina/src/diploma/pipeline/data"
+NER_DIR = "/home/alina/NeuroNER-master"
+OUTPUT_PATH = "/home/alina/src/diploma/pipeline/output/new_dir"
 EPOCHS_NUM = 0
 ABSA_TRAIN_DIR = "/home/alina/src/ABSA-PyTorch/datasets/medicine/train.raw"
 ABSA_DIR = "/home/alina/src/ABSA-PyTorch"
 PIPELINE_PATH = "/home/alina/src/diploma/pipeline"
-PYTHON_VER = "3.6"
 
-os.system("cd {}/src && python{} main.py --dataset_text_folder={} --output_folder={} --maximum_number_of_epochs={}".format(NER_DIR, PYTHON_VER, DATA_FOLDER, NER_OUT_DIR, EPOCHS_NUM))
+os.system("cd {}/src && python{} main.py --dataset_text_folder={} --output_folder={} --maximum_number_of_epochs={}".format(NER_DIR, PYTHON_VER, DATA_FOLDER, OUTPUT_PATH, EPOCHS_NUM))
 
 # return last created ner folder
 def ner_output_folder(ner_output_folders = []):
@@ -28,7 +27,7 @@ def ner_output_folder(ner_output_folders = []):
 
 # by default the last epochs test_file is taken
 def ner_output_test_file(ner_output_test_file = []):
-  output_folder = "{}/{}".format(FULL_OUTPUT_PATH, ner_output_folder())
+  output_folder = "{}/{}".format(OUTPUT_PATH, ner_output_folder())
 
   for dirpath, dirnames, filenames in os.walk(output_folder):
     # hardcode attention
