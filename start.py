@@ -30,7 +30,6 @@ def ner_output_test_file(ner_output_test_file = []):
   output_folder = "{}/{}".format(OUTPUT_PATH, ner_output_folder())
 
   for dirpath, dirnames, filenames in os.walk(output_folder):
-    # hardcode attention
     file_num = "00{}".format(EPOCHS_NUM)
     file_num = "0{}".format(EPOCHS_NUM) if EPOCHS_NUM > 10
 
