@@ -22,7 +22,7 @@ class Unite:
       if (token != predicted_lines[i].split()[0]):
         print("WARNING! Token from gold file and predicted file is not the same at {}".format(i))
 
-      with open("data/unite_resut.txt", "a+") as file:
+      with open("data/unite_result.txt", "a+") as file:
         file.write("{} {} {}\n".format(token, true_label, predicted_label))
 
       i+=1
