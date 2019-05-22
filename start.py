@@ -31,7 +31,8 @@ def ner_output_test_file(ner_output_test_file = []):
 
   for dirpath, dirnames, filenames in os.walk(output_folder):
     file_num = "00{}".format(EPOCHS_NUM)
-    file_num = "0{}".format(EPOCHS_NUM) if EPOCHS_NUM > 10
+    if (EPOCHS_NUM > 10):
+      file_num = "0{}".format(EPOCHS_NUM)
 
     ner_output_test_file = ner_output_test_file + [filename for filename in filenames if re.compile("{}_test.txt".format(file_num)).match(filename)]
 
@@ -44,9 +45,9 @@ filter.filter()
 
 # convert conll to raw
 print("Converting conll to raw format...")
-converter = Raw(filtered_file)
+converter = Raw(filtered_file, OUTPUT_PATH)
 converter.convert()
-raw_filename = "{}/data/test.raw".format(PIPELINE_PATH)
+raw_filename = "{}/test.raw".format(OUTPUT_PATH)
 print("Converting finished")
 
 # copy test and train files to absa directory
@@ -54,16 +55,16 @@ os.system("cd {}/datasets && mkdir -p new_dataset && cd new_dataset && cp {} tes
 
 # run ABSA and copy result in data folder
 os.system("cd {} && python{} train.py --dataset new_dataset".format(ABSA_DIR, PYTHON_VER))
-os.system("cd data && cp {}/output.txt absa_output.txt".format(ABSA_DIR))
+os.system("cd {} && cp {}/output.txt absa_output.txt".format(OUTPUT_PATH, ABSA_DIR))
 
 # get last vector of all vectors in absa
-FilterVec("data/absa_output.txt").filter()
+FilterVec("{}/absa_output.txt".format(OUTPUT_PATH)).filter()
 
 # convert vector to conll
-vec2conll = VecToConll("data/absa_output.txt", filtered_file)
+vec2conll = VecToConll("{}/absa_output.txt".format(OUTPUT_PATH), filtered_file, OUTPUT_PATH)
 absa_conll_file = vec2conll.output_file
 vec2conll.convert()
 
-Unite("data/test.txt", "data/absa_conll_result.txt").unite_resuts()
+Unite("{}/test.txt".format(DATA_FOLDER), "{}/absa_conll_result.txt".format(OUTPUT_PATH), OUTPUT_PATH).unite_resuts()
 
-os.system("./{}/src/conlleval < data/unite_result.txt > data/result.txt".format(NER_DIR))
+os.system("{}/src/conlleval < {}/unite_result.txt > {}/result.txt".format(NER_DIR, OUTPUT_PATH, OUTPUT_PATH))

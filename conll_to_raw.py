@@ -2,9 +2,10 @@ import csv
 import pdb
 
 class Raw:
-  def __init__(self, ner_result):
+  def __init__(self, ner_result, output_folder):
     self.ner_result = ner_result
-    self.new_filename = "data/test.raw"
+    self.output_folder = output_folder
+    self.new_filename = "{}/test.raw".format(self.output_folder)
 
   def convert(self):
     with open(self.ner_result, 'r+') as file:

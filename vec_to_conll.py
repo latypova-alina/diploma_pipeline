@@ -2,10 +2,11 @@ import csv
 import pdb
 
 class VecToConll:
-  def __init__(self, vector, original_file):
+  def __init__(self, vector, original_file, output_folder):
     self.vector = vector
     self.original_file = original_file
-    self.output_file = "data/absa_conll_result.txt"
+    self.output_folder = output_folder
+    self.output_file = "{}/absa_conll_result.txt".format(self.output_folder)
 
   def convert(self):
     predicted_entities = []
@@ -30,7 +31,7 @@ class VecToConll:
               out_file.write("{} {}\n".format(lines[i].split()[0], new_label))
 
               i += 1
-              while lines[i].split()[1] != "O" and lines[i].split()[1][0] != "B":
+              while i < len(lines) and lines[i].split()[1] != "O" and lines[i].split()[1][0] != "B":
                 new_label = "{}-ADR".format(lines[i].split()[1][0])
                 out_file.write("{} {}\n".format(lines[i].split()[0], new_label))
 
@@ -41,7 +42,7 @@ class VecToConll:
               out_file.write("{} {}\n".format(lines[i].split()[0], new_label))
 
               i += 1
-              while lines[i].split()[1] != "O" and lines[i].split()[1][0] != "B":
+              while i < len(lines) and lines[i].split()[1] != "O" and lines[i].split()[1][0] != "B":
                 new_label = "{}-DIS".format(lines[i].split()[1][0])
                 out_file.write("{} {}\n".format(lines[i].split()[0], new_label))
 
