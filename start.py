@@ -20,7 +20,7 @@ os.system("cd {}/src && python{} main.py --dataset_text_folder={} --output_folde
 
 # return last created ner folder
 def ner_output_folder(ner_output_folders = []):
-  for dirpath, dirnames, filenames in os.walk("{}/output/new_dir".format(PIPELINE_PATH)):
+  for dirpath, dirnames, filenames in os.walk(OUTPUT_PATH):
     ner_output_folders = ner_output_folders + [dirname for dirname in dirnames if re.compile("data_2019").match(dirname)]
 
   return ner_output_folders[-1]
